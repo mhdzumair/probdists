@@ -10,9 +10,9 @@ class Uniform(Distribution):
     Attributes:
         mean (float) representing the mean value of the distribution
         stdev (float) representing the standard deviation of the distribution
-        data_list (list of floats) extracted from the data file
-        low (float) representing the smallest number in data_list
-        high (float) representing the highest number in data_list
+        data (list of floats) extracted from the data file
+        low (float) representing the smallest number in data
+        high (float) representing the highest number in data
     """
 
     def __init__(self, low=0, high=10):
@@ -78,14 +78,15 @@ class Uniform(Distribution):
                 Args:
                         x (float): point for calculating the
                                    cumulative distribution function
+                        round_to (int): Round the mean value. [Default value: 2 floating point]
 
                 Returns:
                         float: cumulative distribution function output
                 """
         if x < self.low:
             self.cdf = 0
-        elif self.low<=x<=self.high:
-            self.cdf = (x - self.low)/(self.high-self.low)
+        elif self.low <= x <= self.high:
+            self.cdf = (x - self.low) / (self.high - self.low)
         else:
             self.cdf = 1
 
@@ -118,7 +119,7 @@ class Uniform(Distribution):
                 Returns:
                         float: probability density function output
         """
-        self.pdf = 1/(self.high-self.low) if self.high >= x >= self.low else 0
+        self.pdf = 1 / (self.high - self.low) if self.high >= x >= self.low else 0
         return round(self.pdf, round_to)
 
     def plot_bar_pdf(self):
@@ -136,7 +137,7 @@ class Uniform(Distribution):
         y = []
 
         # calculate the x values to visualize
-        for i in range(int(self.low)-5, int(self.high)+5):
+        for i in range(int(self.low) - 5, int(self.high) + 5):
             x.append(i)
             self.calculate_pdf(i)
             y.append(self.pdf)
